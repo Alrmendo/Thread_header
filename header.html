@@ -52,7 +52,7 @@
                     </a>
                 </div>
                 <div class="header__control--button-container">
-                    <a href="#" class="header__control--link" data-active-icon="bxs-user" data-default-icon="bx-user">
+                    <a href="profile.html" class="header__control--link" data-active-icon="bxs-user" data-default-icon="bx-user">
                         <i class="bx bx-user header__control--button"></i>
                     </a>
                 </div>
@@ -100,21 +100,47 @@
 
     </header>
     <script>
+        // Lấy tất cả các liên kết biểu tượng
         const iconLinks = document.querySelectorAll('.header__control--link');
 
+        // Thêm sự kiện nhấp cho mỗi liên kết
         iconLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-
+            link.addEventListener('click', () => {
+                // Xóa trạng thái "đã chọn" khỏi tất cả các biểu tượng khác
                 iconLinks.forEach(l => {
                     const icon = l.querySelector('i');
                     icon.className = `bx ${l.dataset.defaultIcon} header__control--button`;
                     l.classList.remove('header__control--link-selected');
                 });
 
+                // Thêm trạng thái "đã chọn" cho biểu tượng được nhấp
                 const icon = link.querySelector('i');
                 icon.className = `bx ${link.dataset.activeIcon} header__control--button`;
                 link.classList.add('header__control--link-selected');
+
+                // Không cần event.preventDefault() vì muốn chuyển hướng sang trang khác
+            });
+        });
+
+        // Mặc định cho icon User có màu đen khi tải trang
+        const userLink = document.querySelector('.header__control--link[href="profile.html"]');
+        if (userLink) {
+            const userIcon = userLink.querySelector('i');
+            userLink.classList.add('header__control--link-selected');
+            userIcon.className = `bx ${userLink.dataset.activeIcon} header__control--button`;
+            userIcon.style.color = 'black';
+        }
+
+        // Lấy tất cả các tab
+        const statusHeaders = document.querySelectorAll('.profile__status--header');
+
+        // Thêm sự kiện nhấp vào mỗi tab
+        statusHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                // Xóa lớp 'profile__status--header-active' khỏi tất cả các tab
+                statusHeaders.forEach(h => h.classList.remove('profile__status--header-active'));
+                // Thêm lớp 'profile__status--header-active' vào tab được nhấn
+                header.classList.add('profile__status--header-active');
             });
         });
     </script>
